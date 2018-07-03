@@ -1,4 +1,4 @@
-package com.spark.hbase.resources.hfile;
+package com.spark.hbase.resources.hbase;
 
 import java.io.FileInputStream;
 import java.io.InputStream;

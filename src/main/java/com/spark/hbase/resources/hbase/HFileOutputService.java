@@ -1,4 +1,4 @@
-package com.spark.hbase.resources.hfile;
+package com.spark.hbase.resources.hbase;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -35,8 +35,8 @@ import org.apache.spark.sql.SQLContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.spark.hbase.resources.hfile.entity.BasicModel;
-import com.spark.hbase.resources.hfile.utils.HBaseRecord;
+import com.spark.hbase.resources.hbase.hfile.entity.BasicModel;
+import com.spark.hbase.resources.hbase.hfile.utils.HBaseRecord;
 
 import scala.Tuple2;
 

@@ -1,4 +1,4 @@
-package com.spark.hbase.resources.hfile.entity;
+package com.spark.hbase.resources.hbase.hfile.entity;
 
 import java.io.Serializable;
 

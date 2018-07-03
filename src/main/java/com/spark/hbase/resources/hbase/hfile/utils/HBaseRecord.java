@@ -1,4 +1,4 @@
-package com.spark.hbase.resources.hfile.utils;
+package com.spark.hbase.resources.hbase.hfile.utils;
 
 import java.io.Serializable;
 import java.util.Comparator;
