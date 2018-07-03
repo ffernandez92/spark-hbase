@@ -6,6 +6,7 @@ import java.security.PrivilegedAction;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.Properties;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.Cell;
@@ -49,6 +50,10 @@ public class HFileOutputService implements Serializable{
     
     private static final String HBASESITE = "hbase-site.xml";
     
+    private static final String KRBUSER = "kerberos.user";
+    
+    private static final String KRBKEYTAB = "kerberos.keytab";
+    
     private final transient JavaSparkContext sc;
     
     private final transient SQLContext sqlc;
@@ -61,12 +66,14 @@ public class HFileOutputService implements Serializable{
     
     private final boolean kerberos;
     
+    private final Properties prop;
     
-    public HFileOutputService(final String inputPath, final String outputPath, final String table) {
-	this(inputPath, outputPath, table, Boolean.FALSE);
+    
+    public HFileOutputService(final String inputPath, final String outputPath, final String table, final Properties prop) {
+	this(inputPath, outputPath, table, prop, Boolean.FALSE);
     }
     
-    public HFileOutputService(final String inputPath, final String outputPath, final String table, boolean kerberos) {
+    public HFileOutputService(final String inputPath, final String outputPath, final String table, final Properties prop, boolean kerberos) {
 	this.sc = new JavaSparkContext();
 	this.sqlc = new SQLContext(sc);
 	sqlc.setConf(BINASSTRING, "true");
@@ -74,11 +81,17 @@ public class HFileOutputService implements Serializable{
 	this.outputPath = outputPath;
 	this.table = table;
 	this.kerberos = kerberos;
+	this.prop = prop;
     }
     
+    /**
+     * <p>Executes the save action. It uses Kerberos option only on secured clusters <b>(under user demand)</b>, otherwise 
+     * there is no authentication at all.</p>
+     * @throws IOException
+     */
     public void saveHFile() throws IOException {
 	if(kerberos) {
-	   UserGroupInformation.loginUserFromKeytabAndReturnUGI("kerberosUser", "keytabPath")
+	   UserGroupInformation.loginUserFromKeytabAndReturnUGI(prop.getProperty(KRBUSER), prop.getProperty(KRBKEYTAB))
 	   .doAs(new PrivilegedAction<Void>() {
 	       @Override
 	       public Void run() {

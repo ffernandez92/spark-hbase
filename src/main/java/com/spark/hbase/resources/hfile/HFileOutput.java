@@ -33,7 +33,7 @@ public class HFileOutput {
 	    String inputPath =  args[0];
 	    String outputPath = args[1];
 	    String table = args[2];
-	    HFileOutputService hos = new HFileOutputService(inputPath,outputPath,table);
+	    HFileOutputService hos = new HFileOutputService(inputPath,outputPath,table, prop);
 	    hos.saveHFile();
 	    
 	    LoadIncrementalHFiles loader = new LoadIncrementalHFiles(configuration);
