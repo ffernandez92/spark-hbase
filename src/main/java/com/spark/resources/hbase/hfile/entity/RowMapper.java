@@ -1,4 +1,4 @@
-package com.spark.hbase.resources.hbase.hfile.entity;
+package com.spark.resources.hbase.hfile.entity;
 
 import org.apache.hadoop.hbase.client.Put;
 import org.apache.spark.sql.Row;

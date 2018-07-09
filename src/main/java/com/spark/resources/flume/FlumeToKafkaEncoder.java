@@ -1,4 +1,4 @@
-package com.spark.hbase.resources.flume.encoder;
+package com.spark.resources.flume;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -21,13 +21,13 @@ import org.apache.kafka.common.serialization.Serializer;
  * <li><b>e.g.:</b></li>
  * Properties props = new Properties();<br>
  * props.put("zk.connect", “127.0.0.1:2181”);<br>
- * <b>props.put("value.serializer", "com.spark.hbase.resources.flume.encoder.FlumeToKafkaEventEncoder");</b><br>
+ * <b>props.put("value.serializer", "com.spark.resources.flume.FlumeToKafkaEncoder");</b><br>
  * </p>
  * 
  * @author ffernandez92
  *
  */
-public class FlumeToKafkaEventEncoder implements Serializer<Event> {
+public class FlumeToKafkaEncoder implements Serializer<Event> {
 
 	private ByteArrayOutputStream tempOutStream;
 	private SpecificDatumWriter<AvroFlumeEvent> writer;
