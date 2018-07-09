@@ -13,7 +13,21 @@ import org.apache.flume.Event;
 import org.apache.flume.source.avro.AvroFlumeEvent;
 import org.apache.kafka.common.serialization.Serializer;
 
-public class FlumeEventEncoder implements Serializer<Event> {
+/**
+ * <p>It is used to serialize a Flume Event and store it into Kafka. 
+ * It can be used at any Kafka client implementation adding the corresponding Kafka properties.</p>
+ * 
+ * <p>
+ * <li><b>e.g.:</b></li>
+ * Properties props = new Properties();<br>
+ * props.put("zk.connect", “127.0.0.1:2181”);<br>
+ * <b>props.put("value.serializer", "com.spark.hbase.resources.flume.encoder.FlumeToKafkaEventEncoder");</b><br>
+ * </p>
+ * 
+ * @author ffernandez92
+ *
+ */
+public class FlumeToKafkaEventEncoder implements Serializer<Event> {
 
 	private ByteArrayOutputStream tempOutStream;
 	private SpecificDatumWriter<AvroFlumeEvent> writer;
