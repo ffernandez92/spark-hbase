@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.security.PrivilegedAction;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Properties;
@@ -130,7 +131,7 @@ public class HFileOutputService implements Serializable{
 	    private static final long serialVersionUID = 1L;
 
 	    @Override
-	    public Iterable<Tuple2<HBaseRecord, HBaseRecord>> call(Put put) throws Exception {
+	    public Iterator<Tuple2<HBaseRecord, HBaseRecord>> call(Put put) throws Exception {
 		return getIterable(put);
 	    }
 	    
@@ -174,7 +175,7 @@ public class HFileOutputService implements Serializable{
 	return hbcell;
     }
 
-    private Iterable<Tuple2<HBaseRecord, HBaseRecord>> getIterable(Put put) {
+    private Iterator<Tuple2<HBaseRecord, HBaseRecord>> getIterable(Put put) {
 	List<Tuple2<HBaseRecord, HBaseRecord>> listKeyVal = new ArrayList<>();
 	    for (Entry<byte[], List<Cell>> entry : put.getFamilyCellMap().entrySet()) {
 		List<Cell> cells = entry.getValue();
@@ -183,7 +184,7 @@ public class HFileOutputService implements Serializable{
 		    listKeyVal.add(new Tuple2<>(hbCell, hbCell));
 		}
 	    }
-	    return listKeyVal;
+	    return listKeyVal.iterator();
     }
 
 }
